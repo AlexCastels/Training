@@ -1,0 +1,44 @@
+.sectionContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem ;
+}
+
+.container{
+    width: 100%;
+    height: calc(100vh - 215px);
+    position: relative;
+    display: flex;
+    gap: 4rem
+}
+
+.mapContainer {
+    height: 100%;
+    flex: 1;
+    border-radius: 10px;
+}
+
+.listContainer{
+    flex: 1 ;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.elementContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem ;
+}
+
+.elementList{
+    border-bottom: 1px solid gray;
+    font-size: large;
+    color: rgb(214, 214, 214);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: border-color 0.2s linear ;
+    &:hover{
+        border-color: white;
+    }
+}

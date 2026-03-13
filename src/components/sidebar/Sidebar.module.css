@@ -1,0 +1,16 @@
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

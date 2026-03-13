@@ -1,0 +1,29 @@
+.globalContainer{
+    display: flex;
+    gap: 1rem;
+    padding : 1rem ;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.centeredContainer {  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.borderBottom {
+    border-bottom: 1px solid rgb(131, 131, 131);
+    padding-bottom: 1rem;
+}

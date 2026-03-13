@@ -1,11 +1,11 @@
-
 import './index.css'
 import {createTheme, ThemeProvider} from "@mui/material/styles"
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Dashboard from './modules/dashboard/components/Dashboard';
 import Contacts from './modules/contacts/components/Contacts';
 import { Map } from './modules/map/components/map/Map';
+import Chart from './modules/chart/components/chartSection/Chart';
+import Table from './modules/table/components/Table';
 
 function App() {
 
@@ -22,9 +22,10 @@ function App() {
         <ThemeProvider theme={theme} >
             <Routes>
                 <Route path='/' element={<Layout/>}>
-                    <Route path='dashboard' element={ <Dashboard/> }></Route>
+                    <Route path='table' element={ <Table/> }></Route>
                     <Route path='contacts' element={ <Contacts/> }></Route>
                     <Route path='map' element={ <Map/> }></Route>
+                    <Route path='charts' element={ <Chart/> }></Route>
                     {/* <Route path='info' element={ <Info/> }></Route> */}
                 </Route>
             </Routes>

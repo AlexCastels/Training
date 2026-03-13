@@ -1,7 +1,14 @@
+.mainContainer{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .flex {
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding: 1rem ;
 }
 
 .flexCol {
@@ -20,4 +27,13 @@
 .borderBottom {
     border-bottom: 1px solid rgb(131, 131, 131);
     padding-bottom: 1rem;
+}
+
+.outletContainer{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 2rem ;
+    flex: 1 ;
+    overflow-y: auto;
 }

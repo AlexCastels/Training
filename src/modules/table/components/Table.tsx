@@ -1,6 +1,6 @@
-import styles from './Dashboard.module.css'
+import styles from './Table.module.css'
 import { useMemo, useState } from 'react';
-import { MaterialReactTable, type MRT_ColumnDef, type MRT_RowSelectionState } from 'material-react-table';
+import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { Button } from '@mui/material';
 
 interface User {
@@ -37,7 +37,7 @@ const mockColumns : Columns[] = [
     { id: 'extra', name: 'extra', label: 'Altra colonna', otherParameters: {} },
 ]
 
-export default function Dashboard() {
+export default function Table() {
 
     const [ isLoading , setIsLoading] = useState<boolean>(false) ;
 

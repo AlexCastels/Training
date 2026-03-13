@@ -7,6 +7,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AreaChartIcon from '@mui/icons-material/AreaChart';
+import TocIcon from '@mui/icons-material/Toc';
 import { Link } from 'react-router-dom' ;
 import React from "react";
 
@@ -32,9 +34,9 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         } ,
         {
             id: 3 ,
-            name : 'Dashboard',
-            path : '/dashboard',
-            icon : 'dashboard'
+            name : 'Table',
+            path : '/table',
+            icon : 'table'
         } ,
         {
             id: 4 ,
@@ -44,6 +46,12 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         } ,
         {
             id: 5 ,
+            name : 'Charts',
+            path : '/charts',
+            icon : 'charts'
+        } ,
+        {
+            id: 6 ,
             name : 'Info',
             path : '/info',
             icon : 'info'
@@ -53,9 +61,10 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
     const icons : any = {
         home: <HomeIcon />,
         contacts: <ContactsIcon />,
-        dashboard: <DashboardIcon />,
+        table: <TocIcon />,
         info: <InfoIcon />,
-        map : <MapIcon/>
+        map : <MapIcon/>,
+        charts : <AreaChartIcon/>
     };
 
     return (
@@ -78,7 +87,7 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
                 onClose={() => setOpen(false)}
                 variant="temporary"
             >
-                <List subheader={<ListSubheader>Menu</ListSubheader>}>
+                <List subheader={<ListSubheader sx={{ fontSize: 'large' }}>Menu</ListSubheader>}>
 
                     { links.map((link)=>{
                         return (

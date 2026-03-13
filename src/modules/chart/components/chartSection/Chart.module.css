@@ -1,0 +1,19 @@
+.generalContainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.gridContainer{
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr ;  
+    height: 100%;
+    gap: 0.5rem ;
+}
+
+.chartContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-span: 1;
+}

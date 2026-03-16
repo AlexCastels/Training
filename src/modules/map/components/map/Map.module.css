@@ -34,7 +34,6 @@
 .elementList{
     border-bottom: 1px solid gray;
     font-size: large;
-    color: rgb(214, 214, 214);
     cursor: pointer;
     padding: 0.5rem;
     transition: border-color 0.2s linear ;

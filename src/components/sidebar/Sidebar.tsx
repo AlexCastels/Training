@@ -1,9 +1,8 @@
 import styles from './Sidebar.module.css';
-import { Drawer, List, ListItemButton, ListItemText, Collapse, IconButton, ListSubheader, ListItemIcon, Divider } from "@mui/material";
+import { Drawer, List, ListItemButton, ListItemText, IconButton, ListSubheader, ListItemIcon, Divider } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ContactsIcon from '@mui/icons-material/Contacts';
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -11,6 +10,8 @@ import AreaChartIcon from '@mui/icons-material/AreaChart';
 import TocIcon from '@mui/icons-material/Toc';
 import { Link } from 'react-router-dom' ;
 import React from "react";
+import { useDarkMode } from '../../context/darkmode/DarkModeContext';
+import MaterialUISwitch from '../elements/MaterialUISwitch';
 
 interface PropsInterface {
     open : boolean ,
@@ -18,6 +19,8 @@ interface PropsInterface {
 }
 
 export default function Sidebar({ open, setOpen }: PropsInterface) {
+
+    const { darkMode, setDarkMode } = useDarkMode();
 
     const links = [
         {
@@ -104,10 +107,13 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
                     }) }
                     <Divider/>
                 </List>
-                <List sx={{ marginTop: 'auto'  , alignItems : 'end' }}>
-                    <ListItemButton sx={{ justifyContent: 'flex-end' }}>
-                        <ListItemIcon sx={{ minWidth: 'auto' }}> <SettingsIcon/> </ListItemIcon>
-                    </ListItemButton>
+                <List sx={{ marginTop: 'auto'  , alignItems : 'end' , display: 'flex' , justifyContent : 'space-between', paddingX : '0.5rem'}}>
+                    <MaterialUISwitch onChange={(e) => setDarkMode(e.target.checked)} checked={darkMode}/>
+                    <Link to={'/settings'} onClick={() => setOpen(false)}>
+                        <ListItemButton sx={{ justifyContent: 'flex-end' , borderRadius: 2 }}>
+                            <ListItemIcon sx={{ minWidth: 'auto' }}> <SettingsIcon/> </ListItemIcon>
+                        </ListItemButton>
+                    </Link>
                 </List>
             </Drawer>
         </>

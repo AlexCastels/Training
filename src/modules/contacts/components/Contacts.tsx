@@ -26,7 +26,7 @@ export default function Contacts(){
                         defaultValue={name} 
                         onChange={(e) => setName(e.target.value)} 
                         error={false} 
-                        helperText={'Inserisci nome'}
+                        helperText={'Inserisci Nome'}
                     />
 
                     <TextField 

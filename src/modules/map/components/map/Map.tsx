@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FlyToPosition } from '../flyToPosition/FlyToPosition';
 import { ModalComponent } from '../modal/Modal';
 
-export function Map(){
+export default function Map(){
 
     // 1. Array tuple [lat, lng] — il più usato
     // <Marker position={[51.505, -0.09]}>

@@ -27,6 +27,7 @@ export default function Contacts(){
                         onChange={(e) => setName(e.target.value)} 
                         error={false} 
                         helperText={'Inserisci Nome'}
+                        required
                     />
 
                     <TextField 
@@ -36,6 +37,7 @@ export default function Contacts(){
                         defaultValue={surname} 
                         helperText={'Inserisci Cognome'}
                         onChange={(e) => setSurname(e.target.value)}
+                        required
                     />
                     
                     <div className='select-container'>
@@ -59,7 +61,7 @@ export default function Contacts(){
                         </FormControl>
                     </div>
 
-                    <Button variant='contained' onClick={() => console.log({
+                    <Button variant='contained' disabled={ !name || !surname } onClick={() => console.log({
                         name : name ,
                         surname : surname ,
                         age : select,

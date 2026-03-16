@@ -12,7 +12,7 @@ export default function Layout(){
             <div className={styles.flexCol}>
                 <div className={`${styles.flex} ${styles.borderBottom}`}>
                     <Sidebar open={open} setOpen={setOpen}/>
-                    <h1 >Material UI Training</h1>
+                    <h1>Material UI Training</h1>
                 </div>
             </div>
             <div className={styles.outletContainer} onClick={() => setOpen(false)}>

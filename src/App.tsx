@@ -13,12 +13,12 @@ function App() {
         <DarkModeProvider>
             <Routes>
                 <Route path='/' element={<Layout/>}>
-                    <Route path='table' element={ <Table/> }></Route>
-                    <Route path='contacts' element={ <Contacts/> }></Route>
-                    <Route path='map' element={ <Map/> }></Route>
-                    <Route path='charts' element={ <Chart/> }></Route>
-                    <Route path='settings' element={ <Settings/> }></Route>
-                    {/* <Route path='info' element={ <Info/> }></Route> */}
+                    <Route path='table' element={ <Table/> } />
+                    <Route path='contacts' element={ <Contacts/> } />
+                    <Route path='map' element={ <Map/> } />
+                    <Route path='charts' element={ <Chart/> } />
+                    <Route path='settings' element={ <Settings/> } />
+                    {/* <Route path='info' element={ <Info/> } /> */}
                 </Route>
             </Routes>
         </DarkModeProvider>

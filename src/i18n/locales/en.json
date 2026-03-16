@@ -1,0 +1,14 @@
+{
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "training" : "Training"
+    },
+    "contacts": {
+        "title": "Contacts",
+        "name": "Name",
+        "surname" : "Surname",
+        "age" : "Age",
+        "send" : "Send"
+    }
+}

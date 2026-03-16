@@ -1,11 +1,13 @@
 import styles from './Contacts.module.css'
 import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Contacts(){
 
     const ages = [0,1,2,3,4,5]  ;
 
+    const { t } = useTranslation() ;
     const [ select , setSelect ] = useState<number>(0) ;
     const [ name , setName ] = useState('');
     const [ surname , setSurname ] = useState('');
@@ -16,12 +18,12 @@ export default function Contacts(){
 
     return (
         <section>
-            <h2>Contacts</h2>
+            <h2>{t('contacts.title')}</h2>
             <div className={styles.globalContainer}>
                 <div className={styles.flex}>
                     <TextField
                         id="standard-basic" 
-                        label="Name" 
+                        label={t('contacts.name')} 
                         color="primary"
                         defaultValue={name} 
                         onChange={(e) => setName(e.target.value)} 
@@ -32,7 +34,7 @@ export default function Contacts(){
 
                     <TextField 
                         id="standard-basic" 
-                        label="Surname" 
+                        label={t('contacts.surname')} 
                         color='secondary'
                         defaultValue={surname} 
                         helperText={'Inserisci Cognome'}
@@ -44,12 +46,12 @@ export default function Contacts(){
                         <FormControl fullWidth sx={{ 
                             
                         }}>
-                            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                            <InputLabel id="demo-simple-select-label"> {t('contacts.age')} </InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 value={select}
-                                label="Ages"
+                                label={t('contacts.age')} 
                                 onChange={handleChange}
                             >
                                 { ages.map((age)=>{
@@ -66,12 +68,12 @@ export default function Contacts(){
                         surname : surname ,
                         age : select,
                     })} >
-                        Press
+                        {t('contacts.send')}
                     </Button>
                 </div>
             </div>
             <div>
-                <p>Name : {name} Surname : {surname} Age: {select}</p>
+                <p>{`${t('contacts.name')} : ${name} | ${t('contacts.surname')} : ${surname} | ${t('contacts.age')} : ${select} `}</p>            
             </div>
         </section>
     )

@@ -1,0 +1,14 @@
+{
+    "common": {
+        "save": "Salva",
+        "cancel": "Annulla",
+        "training" : "Allenamento"
+    },
+    "contacts": {
+        "title": "Contatti",
+        "name": "Nome",
+        "surname" : "Cognome",
+        "age" : "Età",
+        "send" : "Invia"
+    }
+}

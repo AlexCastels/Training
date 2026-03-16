@@ -1,8 +1,16 @@
 import ReactECharts from 'echarts-for-react';
+import type { EChartsOption } from 'echarts';
 
 export default function Bar(){
 
-    const option = {
+    const option : EChartsOption = {
+        title: {
+            text: 'Example Bar Chart'
+        },
+        tooltip: {
+            trigger: 'item',        // 'item' per scatter/pie, 'axis' per bar/line
+            formatter: '{a} data: {c}'   // formato testo {a}name {b}assex {c}value 
+        },
         xAxis: {
             type: 'category',
             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -12,7 +20,23 @@ export default function Bar(){
         },
         series: [
             {
+                name : 'Azienda A' ,
                 data: [120, 200, 150, 80, 70, 110, 130],
+                type: 'bar'
+            },
+            {
+                name : 'Azienda B' ,
+                data: [50, 60, 100, 80, 70, 200, 90],
+                type: 'bar'
+            },
+            {
+                name : 'Azienda C' ,
+                data: [70, 80, 100, 80, 70, 50, 60],
+                type: 'bar'
+            },
+            {
+                name : 'Azienda D' ,
+                data: [80, 90, 90, 80, 70, 80, 60],
                 type: 'bar'
             }
         ]

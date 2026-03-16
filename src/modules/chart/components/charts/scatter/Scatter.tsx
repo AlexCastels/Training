@@ -2,7 +2,7 @@ import ReactECharts from 'echarts-for-react';
 import type { ECElementEvent } from 'echarts';
 import { useState } from 'react';
 import { ModalComponent } from '../../modal/Modal';
-import type { OptionDataItem } from 'echarts/types/src/util/types.js';
+import type { EChartsOption } from 'echarts';
 
 type DataInterface = [ number, number, string ]
 
@@ -22,10 +22,10 @@ export default function Scatter(){
         // mouseout: (params) => {},
     }
 
-    const option = {
+    const option : EChartsOption = {
 
         title: {
-            text: 'Scatter example',
+            text: 'Example Scatter Chart',
             subtext: 'Si possono inserire più stili in un grafico',
             left: 'center'        
         },

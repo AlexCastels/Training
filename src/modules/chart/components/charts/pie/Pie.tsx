@@ -1,10 +1,11 @@
 import ReactECharts from 'echarts-for-react';
+import type { EChartsOption } from 'echarts';
 
 export default function Pie(){
 
-    const option = {
+    const option : EChartsOption = {
         title: {
-            text: 'Test Chart Pie',
+            text: 'Example Pie Chart',
             subtext: 'Fake Data',
             left: 'center'
         },

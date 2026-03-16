@@ -1,8 +1,8 @@
 import styles from './Map.module.css'
 import 'leaflet/dist/leaflet.css';
 import type { LatLngTuple } from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, Circle, Polygon, useMap, useMapEvents } from 'react-leaflet'
-import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, Polygon } from 'react-leaflet'
+import { useState } from 'react';
 import { FlyToPosition } from '../flyToPosition/FlyToPosition';
 import { ModalComponent } from '../modal/Modal';
 

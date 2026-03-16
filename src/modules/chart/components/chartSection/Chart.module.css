@@ -6,7 +6,8 @@
 
 .gridContainer{
     display: grid;
-    grid-template: 1fr 1fr / 1fr 1fr ;  
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     height: 100%;
     gap: 0.5rem ;
 }
@@ -16,4 +17,10 @@
     justify-content: center;
     align-items: center;
     column-span: 1;
+}
+
+@media (max-width: 768px) {
+    .gridContainer {
+        grid-template-columns: 1fr;
+    }
 }

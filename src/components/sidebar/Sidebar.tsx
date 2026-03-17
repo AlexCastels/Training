@@ -8,9 +8,10 @@ import MapIcon from '@mui/icons-material/Map';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AreaChartIcon from '@mui/icons-material/AreaChart';
 import TocIcon from '@mui/icons-material/Toc';
+import DynamicFeed from '@mui/icons-material/DynamicFeed';
 import { Link } from 'react-router-dom' ;
-import React from "react";
 import { useDarkMode } from '../../context/darkmode/DarkModeContext';
+import React from "react";
 import MaterialUISwitch from '../elements/MaterialUISwitch';
 
 interface PropsInterface {
@@ -49,12 +50,12 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         } ,
         {
             id: 5 ,
-            name : 'Charts',
-            path : '/charts',
-            icon : 'charts'
+            name : 'Posts',
+            path : '/posts',
+            icon : 'posts'
         } ,
         {
-            id: 6 ,
+            id: 7 ,
             name : 'Info',
             path : '/info',
             icon : 'info'
@@ -67,7 +68,8 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         table: <TocIcon />,
         info: <InfoIcon />,
         map : <MapIcon/>,
-        charts : <AreaChartIcon/>
+        charts : <AreaChartIcon/>,
+        posts : <DynamicFeed/>
     };
 
     return (

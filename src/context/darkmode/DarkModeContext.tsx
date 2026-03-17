@@ -15,7 +15,7 @@ export const useDarkMode = () => useContext(DarkModeContext);
 //export providers
 export default function DarkModeProvider( {children} : {children : ReactNode }){
     
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
 
     const theme = createTheme({
         palette: {

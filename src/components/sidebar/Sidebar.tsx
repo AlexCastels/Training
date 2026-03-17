@@ -3,7 +3,6 @@ import { Drawer, List, ListItemButton, ListItemText, IconButton, ListSubheader, 
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ContactsIcon from '@mui/icons-material/Contacts';
-import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AreaChartIcon from '@mui/icons-material/AreaChart';
@@ -55,10 +54,10 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
             icon : 'posts'
         } ,
         {
-            id: 7 ,
-            name : 'Info',
-            path : '/info',
-            icon : 'info'
+            id: 6 ,
+            name : 'Charts',
+            path : '/charts',
+            icon : 'charts'
         } ,
     ]
 
@@ -66,7 +65,6 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         home: <HomeIcon />,
         contacts: <ContactsIcon />,
         table: <TocIcon />,
-        info: <InfoIcon />,
         map : <MapIcon/>,
         charts : <AreaChartIcon/>,
         posts : <DynamicFeed/>

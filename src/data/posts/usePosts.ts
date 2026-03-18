@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import api from '../axios/axiosIstance'
+import { apiPosts } from '../axios/axiosIstance'
 
 export const usePosts = () => useQuery({
     queryKey: ['posts'],
     queryFn: async () => {
         console.log('Fetching posts...')
-        const { data } = await api.get('/posts')
+        const { data } = await apiPosts.get('/posts')
         return data
     },
 })

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../axios/axiosIstance";
+import { apiPosts } from "../axios/axiosIstance";
 
 //esempio con JSON placeholder, si aspetta questi parametri nella post, ritorna solamente un log e non un dato reale con la POST
 interface PostInterface {
@@ -9,7 +9,7 @@ interface PostInterface {
 }
 
 const createPost = async (post: PostInterface) => {
-    const { data } = await api.post('/posts', post)
+    const { data } = await apiPosts.post('/posts', post)
     return data
 }
 

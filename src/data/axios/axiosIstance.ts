@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const api = axios.create({
+export const apiPosts = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com',
     timeout: 10000,  // millisecondi — se la chiamata supera 10s lancia un errore
     
@@ -15,14 +15,19 @@ const api = axios.create({
     // },
 }) ;
 
+export const apiProducts = axios.create({
+    baseURL: 'https://dummyjson.com',
+    timeout: 10000,
+}) ;
+
 //middleware request - prima della chiamata, utile per autenticazioni, validazioni
-api.interceptors.request.use((config) => {
+apiPosts.interceptors.request.use((config) => {
     console.log(`🚀 [${config.method?.toUpperCase()}] ${config.baseURL}${config.url}`)
     return config
 })
 
 //middleware response - dopo la chiamata, utile per manipolare i dati della risposta
-api.interceptors.response.use(
+apiPosts.interceptors.response.use(
     (response) => {
         console.log(`✅ [${response.status}] ${response.config.url}`)
         return response
@@ -33,7 +38,12 @@ api.interceptors.response.use(
     }
 ) ;
 
-export default api
+apiProducts.interceptors.request.use((config) => {
+    console.log(`🚀 [${config.method?.toUpperCase()}] ${config.baseURL}${config.url}`)
+    return config
+})
+
+export default { apiPosts , apiProducts } ;
 
 //  in axiosIstance è possibile definire più api da poter utilizzare per le varie query
 

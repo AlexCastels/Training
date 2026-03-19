@@ -44,7 +44,7 @@ const mockColumns : ColumnsInterface[] = [
 
 export default function MockTable(){
 
-        // bisogna usare useMemo per non causare re-render nel generare le colonne
+    // bisogna usare useMemo per non causare re-render nel generare le colonne
     // le props consentono di gestire varie opzioni per le celle di row e column
     // props accettano sia un obj diretto o una funzione, nella func è possibile inserire anche sx per stili personalizzati
     const columns = useMemo<MRT_ColumnDef<UserInterface>[]>(() => 
@@ -53,7 +53,7 @@ export default function MockTable(){
             header : el.label,
             size : el.id === 'id' ? 90 : undefined,
             muiTableBodyCellProps: {
-                align: el.id === 'id' || el.id === 'actions' ? 'center' : 'left',  // 'left' | 'center' | 'right'
+                align: el.id === 'id' ? 'center' : 'left',  // 'left' | 'center' | 'right'
             },
             muiTableHeadCellProps: () => ({
                 // align: el.id === 'id' ? 'center' : 'left', // in MUI RT è un problema noto non poter allineare correttamente al centor l'header delle colonne

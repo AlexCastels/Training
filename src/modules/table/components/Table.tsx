@@ -1,174 +1,13 @@
 import styles from './Table.module.css'
-import { useEffect, useMemo, useState } from 'react';
-import { MaterialReactTable, useMaterialReactTable, type MRT_ColumnDef, type MRT_Row, type MRT_TableInstance } from 'material-react-table';
-import { Box, Button, IconButton, MenuItem } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useProducts } from '../../../data/products/useProducts';
 import MockTable from './MockTable/MockTable';
-
-
-interface UserInterface {
-    id: number;
-    name: string;
-    email: string;
-    role: string;
-    details : string;
-    extra? : string;
-    test? : string;
-}
-
-interface ColumnsInterface {
-    id: string, 
-    name: string, 
-    label: string, 
-    otherParameters: {} 
-}
-
-const mockData : UserInterface[] = [
-    { id: 1,  name: 'Mario Rossi', email: 'mario@email.it', role: 'Admin', details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'        , extra : 'extra', },
-    { id: 2,  name: 'Luca Bianchi', email: 'luca@email.it', role: 'User', details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'         , extra : 'extra', },
-    { id: 3,  name: 'Sara Verdi', email: 'sara@email.it', role: 'User', details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'           , extra : 'extra', },
-    { id: 4,  name: 'Alessandro Castelli', email: 'sara@email.it', role: 'Admin' , details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?', extra : 'extra', },
-    { id: 5,  name: 'Marco Guido', email: 'test@email.it', role: 'User' , details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'         , extra : 'extra', },
-    { id: 6,  name: 'Claudia Verdi', email: 'esempio@email.it', role: 'Admin' , details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'   , test : 'test', },
-    { id: 7,  name: 'Giorgia Rossi', email: 'rossi@email.it', role: 'User' , details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'      , test : 'test', },
-    { id: 8,  name: 'Paolo Campanile', email: 'paolo@email.it', role: 'Master' , details : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, reprehenderit?'  , test : 'test', },
-];
-
-const mockColumns : ColumnsInterface[] = [
-    { id: 'thumbnail ',  name: 'thumbnail ',  label: 'Thumb',           otherParameters: {} },
-    { id: 'id',    name: 'id',    label: 'ID',                otherParameters: {} },
-    { id: 'category',  name: 'category',  label: 'Categoria', otherParameters: {} },
-    { id: 'product', name: 'product', label: 'Prodotto',      otherParameters: {} },
-    { id: 'availabilityStatus', name: 'availabilityStatus', label: 'Disponibilità',  otherParameters: {} },
-    { id: 'stock', name: 'stock', label: 'Quantità',  otherParameters: {} },
-    { id: 'sku', name: 'sku', label: 'Codice',        otherParameters: {} },
-    
-]
+import ProductsTable from './ProductsTable/ProductsTable';
 
 export default function Table() {
-    
-    const [ paginationOption , setPaginationOption ] = useState({
-        pageIndex : 0 ,
-        limit : 10 ,
-        skip : 0 
-    })
-
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 15, 
-    });
-
-    const { data , isLoading , isFetching } = useProducts(paginationOption) ;
-    const products = useMemo(() => data?.products ?? [], [data]) ;
- 
-    // bisogna usare useMemo per non causare re-render nel generare le colonne
-    // le props consentono di gestire varie opzioni per le celle di row e column
-    // props accettano sia un obj diretto o una funzione, nella func è possibile inserire anche sx per stili personalizzati
-    const columns = useMemo<MRT_ColumnDef<any>[]>(() => 
-        mockColumns.map(el => ({
-            accessorKey : el.id ,
-            header : el.label,
-            // Cell: ({ cell }) => (
-            //     <img src={cell.getValue<string>()} alt="product" style={{ width: 50, height: 50, objectFit: 'cover' }} /> 
-            // )
-        }))
-    ,[]) ;
-
-    // renderRowActionMenuItems accetta un array di elementi per la lista di azioni
-    const rowMenuActionsRender = (row : MRT_Row<UserInterface>) => {
-        return (
-            [
-                <MenuItem key="edit" onClick={() => console.info('Edit' , row.original)}>
-                    Edit
-                </MenuItem>,
-                <MenuItem key="delete" onClick={() => console.info('Delete' , row.original)}>
-                    Delete
-                </MenuItem>
-            ]
-        )
-    }
-
-    // renderRowActions permette di inseire bottoni per interazioni con la riga
-    const rowActionsRender = (row : MRT_Row<UserInterface>) => {
-        return (
-            <Box sx={{ display : 'flex' }}>
-                <IconButton onClick={() => console.info('Edit' , row.original)}>
-                    <EditIcon />
-                </IconButton>
-                <IconButton onClick={() => console.info('Delete' , row.original)}>
-                    <DeleteIcon />
-                </IconButton>
-            </Box>
-        )
-    }
-
-    //useMaterialReactTable non cattura il cambio di stato, legge solo il primo valore
-    const table = useMaterialReactTable({
-        columns : columns,
-        data : products,       
-        layoutMode :'grid',        
-        enableRowActions : true ,
-        positionActionsColumn : 'last' ,
-        enableRowSelection   : true,
-        enableColumnOrdering : true,
-        enableStickyHeader   : true,
-        enableGrouping       : true,
-        // rowCount: data?.total ?? 0,
-        initialState : {
-            // isLoading,
-            density: 'comfortable',
-        } ,
-        // onPaginationChange: setPagination ,
-        // manualPagination: true,
-        state: {
-            isLoading: isLoading,           // solo primo load
-            //showProgressBars: isFetching,   // refetch (non blocca la table)
-            // pagination: { pageIndex: paginationOption.pageIndex , pageSize : paginationOption.limit }, 
-        },
-        // renderRowActions={({ row } : { row : MRT_Row<UserInterface> }) => (
-        //         rowActionsRender(row)
-        //     ) 
-        // },
-        
-        // renderDetailPanel={({ row } : { row : MRT_Row<UserInterface> }) => (
-        //     <div className={styles.flex}>
-        //         <p>Details:</p>
-        //         <p>{row.original.details}</p>
-        //     </div>
-        // )},
-        // renderBottomToolbarCustomActions={({ table } : { table : MRT_TableInstance<UserInterface> }) => ( 
-        //     <>
-        //         { table.getSelectedRowModel().rows.length > 0 && 
-        //             <Button onClick={() => {
-        //                 const selectedRows = table.getSelectedRowModel().rows.map( row => row.original ) ;
-        //                 console.log(selectedRows)
-        //             }} > Invia </Button> 
-        //         }
-        //     </>
-        // )}
-        
-    })
 
     return (
         <div className={styles.container}>
-            <h2>DummyJSON Table Example</h2>
-            {/* <MaterialReactTable table={table}/> */}
-                <MaterialReactTable
-                    columns={columns}
-                    data={products}
-                    state={{ isLoading, showProgressBars: isFetching }}
-                    layoutMode="grid"
-                    enableRowActions
-                    positionActionsColumn="last"
-                    enableRowSelection
-                    enableColumnOrdering
-                    enableStickyHeader
-                    enableGrouping
-                    initialState={{ density: 'comfortable' }}
-                />
-            {/* <MockTable/> */}
+            <ProductsTable/>
+            <MockTable/>
         </div>
     );
 }
@@ -212,6 +51,8 @@ export default function Table() {
 
 //  Celle:
 //  dentro la definizione della colonna
+//  è possibile accedere al valore della singola cella o alla row
+//  row.original -> per puntare all'obj originale
 //  {
 //      accessorKey: 'role',
 //      header: 'Ruolo',

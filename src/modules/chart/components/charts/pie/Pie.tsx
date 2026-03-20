@@ -1,7 +1,7 @@
 import ReactECharts from 'echarts-for-react';
 import type { EChartsOption } from 'echarts';
 
-export default function Pie(){
+export default function Pie({ darkMode } : { darkMode : boolean }){
 
     const option : EChartsOption = {
         title: {
@@ -40,6 +40,6 @@ export default function Pie(){
     };
 
     return (
-        <ReactECharts option={option} style={{ width: '100%', height: '100%' }}/>
+        <ReactECharts theme={darkMode ? 'dark' : 'light'} option={option} style={{ width: '100%', height: '100%' }}/>
     )
 }

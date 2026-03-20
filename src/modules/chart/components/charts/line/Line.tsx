@@ -2,7 +2,7 @@ import ReactECharts from 'echarts-for-react';
 import type { EChartsOption } from 'echarts';
 
 
-export default function Line(){
+export default function Line({ darkMode } : { darkMode : boolean }){
 
     const option : EChartsOption = {
         title: {
@@ -72,6 +72,6 @@ export default function Line(){
     }
 
     return (
-        <ReactECharts option={option} style={{ width: '100%', height: '100%' }}/>
+        <ReactECharts theme={darkMode ? 'dark' : 'light'} option={option} style={{ width: '100%', height: '100%' }}/>
     )
 }

@@ -6,7 +6,7 @@ import type { EChartsOption } from 'echarts';
 
 type DataInterface = [ number, number, string ]
 
-export default function Scatter(){
+export default function Scatter({ darkMode } : { darkMode : boolean }){
 
     const [ openModal , setOpenModal ] = useState<DataInterface | null>(null) ;
 
@@ -86,7 +86,7 @@ export default function Scatter(){
 
     return (
         <>
-            <ReactECharts option={option} onEvents={onEvents} style={{ width: '100%', height: '100%' }}/>
+            <ReactECharts theme={darkMode ? 'dark' : 'light'} option={option} onEvents={onEvents} style={{ width: '100%', height: '100%' }}/>
             <ModalComponent data={openModal} onClose={() => setOpenModal(null)}/>
         </>
     )

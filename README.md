@@ -15,13 +15,15 @@ Serve per :
 ```tsx
   const msalConfig = {
       auth: {
-        clientId: 'xxxx-xxxx',           // id dell'app registrata su Azure
-        tenantId: 'xxxx-xxxx',           // il tenant aziendale dell'organizzazione
-        redirectUri: 'http://dominio',   // redirect verso l'app dopo auth
-        navigateToLoginRequestUrl : true // permette ri ritornare all'ultimo URL dopo un redirect di login
+        clientId: 'xxxx-xxxx',                   // id dell'app registrata su Azure
+        tenantId: 'xxxx-xxxx',                   // il tenant aziendale dell'organizzazione
+        redirectUri: 'http://dominio',           // redirect verso l'app dopo auth
+        navigateToLoginRequestUrl : true         // permette ri ritornare all'ultimo URL dopo un redirect di login
+        postLogoutRedirectUri: 'http://dominio', // dove andare dopo il logout
       },
-      cache: {                           // configurazione extra
-        cacheLocation: "localStorage"    // di default è un sessionStorage
+      cache: {                                   // configurazione extra
+        cacheLocation: "localStorage"            // di default è un sessionStorage
+        storeAuthStateInCookie: true,            // fallback per browser che bloccano sessionStorage (es. Safari/IE)
       }
   };
 
@@ -150,9 +152,16 @@ Il più completo — restituisce tre cose:
 const { instance, accounts, inProgress } = useMsal();
 
 instance    // la PublicClientApplication, per chiamare login/logout/acquireToken
-accounts    // array degli account loggati
+accounts    // array degli account loggati, torna sempre un array anche con solo un utente
 inProgress  // stato corrente ("login", "logout", "none", ecc.)
 ```
+
+account non è affidabile però sulla sessione in caso di multiaccount.
+
+Un controllo più affidabile può essere fatto su di un account attivo, che viene settato manualmente al login generalmente.
+
+- Viene utilizzato `instance.setActiveAccount(account)` per settare.
+- `getActiveAccount()` restituisce l'account impostato come attivo.
 
 ### useIsAuthenticated
 
@@ -168,22 +177,47 @@ Un utility hook che restituisce solo un booleano, controlla il log di un singolo
   useIsAuthenticated(accountIdentifiers)  // restituisce true/false, utile per conditional rendering
 ```
 
-## Pattern principali
+# Flusso
 
-```tsx
-  const { instance, accounts , inProgress } = useMsal();
+### Prima apertura dell'app
+```
+Apri l'app
+      ↓
+MsalAuthenticationTemplate controlla la cache → nessun token
+      ↓
+Redirect verso login.microsoft.com
+      ↓
+Inserisci le tue credenziali aziendali
+      ↓
+Microsoft valida le credenziali
+      ↓
+Redirect verso la tua app (redirectUri)
+      ↓
+MSAL salva ID token, access token, refresh token in sessionStorage
+      ↓
+L'app si carica, sei dentro
+```
 
-  // login
-  instance.loginRedirect();
+### Aperture successive (stesso browser, stessa sessione)
+```
+Apri l'app
+      ↓
+MsalAuthenticationTemplate controlla la cache → token trovato
+      ↓
+acquireTokenSilent verifica che sia valido
+      ↓
+Sei già loggato, l'app si carica direttamente
+```
 
-  // logout
-  instance.logoutRedirect();
-
-  // utente loggato
-  const user = accounts[0];
-  console.log(user.name, user.username);
-
-  // token per le chiamate API
-  const token = await instance.acquireTokenSilent({ scopes: ['api://xxx'] });
-  axios.defaults.headers.Authorization = `Bearer ${token.accessToken}`;
+### Quando chiami un'API
+```
+Chiami axios.get("/api/dati")
+      ↓
+Interceptor chiama acquireTokenSilent
+      ↓
+MSAL restituisce l'access token (rinnovandolo se necessario)
+      ↓
+La chiamata parte con Authorization: Bearer <token>
+      ↓
+Il backend valida il token con Microsoft e risponde
 ```

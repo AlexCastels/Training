@@ -79,9 +79,20 @@ Salva:
 - Account info          — i dati dell'account loggato
 - Stato della richiesta — usato durante il redirect per sapere dove tornare
 
-tramite acquireToken() di useMsalAuthentication o useMsal è possibile leggere il sessionStorage per il token
+tramite `acquireToken()` di useMsalAuthentication o istance di useMsal è possibile controllare la cache del sessionStorage per la validità del token, anche tramite `istance.acquireTokenSilent`, utile negli interceptor di axios per gestire API che richiedono auth, le funzioni si occupano di verificare la vlidità del token e il suo refresh.
 
-o tramite istance.acquireTokenSilent, utile negli interceptor di axios per gestire API che richiedono auth
+### Gestione dei token
+
+- Access Token  → scade dopo circa 1 ora
+- Refresh Token → scade dopo 24 ore (o più, dipende dalla config Azure)
+
+Un token scade, e potrebbe accadere durante la sessione, o tra sessioni diverse, `istance.acquireTokenSilent` permette di controllare token e refresh token in background per non bloccare la sessione dell'utente e permettere di rimanere loggato
+
+1. Access token valido?   → lo restituisce (JWT)
+2. Access token scaduto?  → usa il refresh token automaticamente per ottenerne uno nuovo
+3. Refresh token scaduto? → lancia InteractionRequiredAuthError (errore utilizzabile per sloggare)
+
+Questo per evitare che durante l'utilizzo dell'app l'utente veda errori di chiamata o altri bug dovuti alla sessione
 
 ```tsx
 // Esempio con axios
@@ -90,7 +101,7 @@ const getAccessToken = async () => {
     scopes: ["api://mia-api/Read"],
     account: accounts[0]
   });
-  return response.accessToken;
+  return response.accessToken; //restituisce il JWT da utilizzare nell'header
 };
 
 const fetchDati = async () => {
@@ -100,19 +111,6 @@ const fetchDati = async () => {
   });
 };
 ```
-
-### Gestione dei token
-
-- Access Token  → scade dopo circa 1 ora
-- Refresh Token → scade dopo 24 ore (o più, dipende dalla config Azure)
-
-Un token scade, e potrebbe accadere durante la sessione, o tra sessioni diverse, istance.acquireTokenSilent permette di controllare token e refresh token in background per non bloccare la sessione dell'utente e permettere di rimanere loggato
-
-1. Access token valido   → lo restituisce
-2. Access token scaduto  → usa il refresh token automaticamente per ottenerne uno nuovo
-3. Refresh token scaduto → lancia InteractionRequiredAuthError e slogga l'utente
-
-Questo per evitare che durante l'utilizzo dell'app l'utente veda errori di chiamata o altri bug dovuti alla sessione
 
 ## Hook
 

@@ -14,3 +14,6 @@ i18n.use(initReactI18next).init({
 });
 
 export default i18n;
+
+// E' possibile anche fetchare esternamente le traduzioni è aggiungerle dinamicamente
+// i18n.addResourceBundle('it', 'translation', variabile);

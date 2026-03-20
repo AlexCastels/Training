@@ -40,12 +40,12 @@ Serve per :
   <MsalAuthenticationTemplate/> // controlla il login , se assente causa redirect o popup , attivo
 ```
 
-###  <MsalAuthenticationTemplate/>
+###  MsalAuthenticationTemplate
 
 E' quel componente che permette di controllare attivamente l'autenticazione di un utente
 
 ```tsx
-onst authRequest = {
+const authRequest = {
   scopes: ["User.Read", "openid", "profile"]
 };
 

@@ -1,7 +1,8 @@
 import { MaterialReactTable, type MRT_Cell, type MRT_ColumnDef, type MRT_Row } from "material-react-table";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { Card } from "../elements/Card";
+import { FilterDiagnostic } from "../filter/FilterDiagnostic";
 
 export type Trend = {
     trend: "Active Power" | "Active Energy" | "Frequency" | "PR" ;
@@ -185,7 +186,7 @@ export default function DataQuality(){
                 ))}
             </Box>
 
-            <p>Aggiungere filters</p>
+            <FilterDiagnostic/>
             
             <MaterialReactTable
                 muiTableHeadCellProps={{

@@ -5,7 +5,7 @@ export default function Dashboard(){
     //altro fetch per ottenere i gateway da mostrare in griglia, con possibilità di filtraggio
     const GatewayCard = () => {
         return (
-            <Box sx={{ height : '200px', bgcolor : 'background.default' , border : 1 , borderRadius : 2 , borderColor: 'gray' , p : 1 }}>
+            <Box sx={{bgcolor : 'background.default' , border : 1 , borderRadius : 2 , borderColor: 'gray' , p : 1 }}>
                 <Box sx={{ display : 'flex', alignItems : 'center', justifyContent : 'space-between' }}>
                     <p>Gateway</p>
                     <Chip label="Chip 1" color="primary" size="small" />
@@ -34,7 +34,7 @@ export default function Dashboard(){
     }
 
     return (
-        <Box sx={{ display : "grid" , gridTemplateColumns : "repeat(6 , 1fr)" , gap : 2 }}>
+        <Box sx={{ display : "grid" , gridTemplateColumns : "repeat(5 , 1fr)" , gap : 2 }}>
             { Array.from({ length: 15 }).map((_, index) => (
                 <GatewayCard key={index}/>
             ))} 

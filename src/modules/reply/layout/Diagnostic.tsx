@@ -14,7 +14,7 @@ export default function Diagnostic(){
     const [ tabIndex, setTabIndex ] = useState(0) ;
 
     return (
-        <Box sx={{ display : "flex" , flexDirection : "column" , gap : 2 }}>
+        <Box sx={{ display : "flex" , flexDirection : "column" , gap : 4 }}>
             <h2>Diagnositc</h2>
             <Box>
                 <TabsComponent tabs={tabs} value={tabIndex} handleChange={(event, newValue) => setTabIndex(newValue)}/> 

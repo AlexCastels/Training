@@ -1,8 +1,11 @@
 import { MaterialReactTable, type MRT_Cell, type MRT_ColumnDef, type MRT_Row } from "material-react-table";
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box } from "@mui/material";
 import { Card } from "../elements/Card";
 import { FilterDiagnostic } from "../filter/FilterDiagnostic";
+import { useState } from "react";
+import PlantOverview from "../tables/PlantOverview";
+import { PlantDetail } from "../tables/PlantDetail";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export type Trend = {
     trend: "Active Power" | "Active Energy" | "Frequency" | "PR" ;
@@ -26,14 +29,7 @@ export type Plant = {
     trends: Trend[];
 };
 
-export type DiagnosticColumns = {
-
-}
-
-export default function DataQuality(){
-
-
-    const plantsMock: Plant[] = [
+const plantsMock: Plant[] = [
         {
             id: "plant-1",
             name: "FRA_PV_01",
@@ -105,45 +101,70 @@ export default function DataQuality(){
             },
             ],
         },
-    ];
-
-    const columnsDef : MRT_ColumnDef<Plant>[] = [
         {
-            accessorKey: 'name',
-            header: 'Plant Name',
-            size : 160 ,
-            grow : false, 
-            // Cell: ({ cell } : { cell: MRT_Cell<Plant> }) => <Box sx={{ py : 1.5, paddingX: 4 }}>{`${cell.getValue()} %`}</Box> 
+            id: "plant-4",
+            name: "ESP_PV_03",
+            completeness: 96,
+            consistency: 91,
+            congruence: 89,
+            timeliness: 94,
+            technology: "PV",
+            geo: "ES",
+            portfolio: "South",
+            trends: [
+            {
+                trend: "Active Power",
+                device: "Inverter-5",
+                completeness: 97,
+                consistency: 93,
+                congruence: 90,
+                timeliness: 95,
+            },
+            {
+                trend: "Active Energy",
+                device: "Meter-2",
+                completeness: 95,
+                consistency: 89,
+                congruence: 88,
+                timeliness: 93,
+            },
+            ],
         },
-        { 
-            accessorKey: 'completeness',              
-            header: 'Completeness',      
-            size: 160,       
-            grow: true  ,
-            Cell: ({ cell } : { cell: MRT_Cell<Plant> }) => <Box sx={{ py : 1.5, paddingX: 4 }}>{`${cell.getValue()} %`}</Box> 
+        {
+            id: "plant-5",
+            name: "UK_WIND_04",
+            completeness: 71,
+            consistency: 68,
+            congruence: 65,
+            timeliness: 70,
+            technology: "WIND",
+            geo: "UK",
+            portfolio: "North",
+            trends: [
+            {
+                trend: "Active Power",
+                device: "Turbine-8",
+                completeness: 74,
+                consistency: 70,
+                congruence: 67,
+                timeliness: 72,
+            },
+            {
+                trend: "Frequency",
+                device: "Sensor-3",
+                completeness: 68,
+                consistency: 66,
+                congruence: 63,
+                timeliness: 68,
+            },
+            ],
         },
-        { 
-            accessorKey: 'consistency',              
-            header: 'Consistency',      
-            size: 160,       
-            grow: true  ,
-            Cell: ({ cell } : { cell: MRT_Cell<Plant> }) => <Box sx={{ py : 1.5, paddingX: 4 }}>{`${cell.getValue()} %`}</Box>        
-        },
-        { 
-            accessorKey: 'congruence',           
-            header: 'Congruence',     
-            size: 160, 
-            grow: true ,
-            Cell: ({ cell } : { cell: MRT_Cell<Plant> }) => <Box sx={{ py : 1.5, paddingX: 4 }}>{`${cell.getValue()} %`}</Box>        
-        },
-        { 
-            accessorKey: 'timeliness', 
-            header: 'Timeliness', 
-            size: 160, 
-            grow: true  ,
-            Cell: ({ cell } : { cell: MRT_Cell<Plant> }) => <Box sx={{ py : 1.5, paddingX: 4 }}>{`${cell.getValue()} %`}</Box>  
-        },
-    ] ;
+];
+
+
+export default function DataQuality(){
+
+    const [ plantDetail , setPlantDetail ] = useState<Plant | null>(null)
 
     const mockTrends = [
         {
@@ -164,16 +185,15 @@ export default function DataQuality(){
         }
     ]
 
-    const rowActionsRender = (row : MRT_Row<Plant>) => {
-        return (
-            <Box sx={{ cursor: 'pointer' , py : 1.5, paddingX: 2 }} onClick={() => console.info('Navigate to -> ', row.original)}>
-                <OpenInNewIcon />
-            </Box>
-        )
-    }
-
     return (
         <>
+            { plantDetail && 
+                <Box sx={{ display : 'flex' , alignItems : 'center' , gap : 1 , bgcolor : 'gray', p : 2 }}>
+                    <ArrowBackIcon sx={{ cursor : 'pointer' }} onClick={() => setPlantDetail(null)}/>
+                    {plantDetail.name}
+                </Box> 
+            }
+
             <Box sx={{ 
                 display : 'flex' , 
                 alignItems : 'center' , 
@@ -188,37 +208,7 @@ export default function DataQuality(){
 
             <FilterDiagnostic/>
             
-            <MaterialReactTable
-                muiTableHeadCellProps={{
-                    sx: {
-                        fontSize: '16px',
-                        fontWeight: 'bold',
-                        paddingY: 4,
-                    },
-                }}
-                muiTableBodyRowProps={({ row }) => ({
-                    sx: {
-                        backgroundColor: row.index % 2 === 0 ? 'rgba(187, 187, 187, 0.1)' : 'inherit',
-                    },
-                })}
-                columns={columnsDef}
-                data={plantsMock}
-                initialState={{ density: 'compact' }}
-                enableTopToolbar={false}
-                enableGlobalFilter={false}
-                enableFullScreenToggle={false}
-                enableDensityToggle={false}
-                enableBottomToolbar={false}
-                // state={{ isLoading, showProgressBars: isFetching , pagination , globalFilter , columnFilters }}
-                layoutMode="grid"
-                positionActionsColumn="last"
-                enableStickyHeader
-                enableRowActions
-                renderRowActions={ ({ row } : { row : MRT_Row<Plant> }) => (
-                    rowActionsRender(row)
-                )}
-                // rowCount={ plantsMock?.length ?? 0 }         
-            />
+            { plantDetail ? <PlantDetail plant={plantDetail} /> : <PlantOverview plants={plantsMock} setPlantDetail={setPlantDetail}/> }
         
         </>
     )

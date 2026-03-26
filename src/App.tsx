@@ -9,6 +9,7 @@ import Settings from './modules/settings/components/Settings';
 import DarkModeProvider from './context/darkmode/DarkModeContext';
 import Posts from './modules/posts/components/Posts';
 import TanstackProvider from './data/tanstackProvider/TanstackProvider';
+import Diagnostic from './modules/reply/layout/Diagnostic';
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
                         <Route path='charts' element={ <Chart/> } />
                         <Route path='settings' element={ <Settings/> } />
                         <Route path='posts' element={ <Posts/> } />
-                        {/* <Route path='info' element={ <Info/> } /> */}
+                        <Route path='diagnostic' element={ <Diagnostic/> } />
                     </Route>
                 </Routes>
             </DarkModeProvider>

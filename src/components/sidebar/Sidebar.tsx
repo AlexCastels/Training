@@ -8,6 +8,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AreaChartIcon from '@mui/icons-material/AreaChart';
 import TocIcon from '@mui/icons-material/Toc';
 import DynamicFeed from '@mui/icons-material/DynamicFeed';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import { Link } from 'react-router-dom' ;
 import { useDarkMode } from '../../context/darkmode/DarkModeContext';
 import React from "react";
@@ -59,6 +60,12 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
             path : '/charts',
             icon : 'charts'
         } ,
+        {
+            id: 7 ,
+            name : 'Diagnostic',
+            path : '/diagnostic',
+            icon : 'diagnostic'
+        } ,
     ]
 
     const icons : any = {
@@ -67,7 +74,8 @@ export default function Sidebar({ open, setOpen }: PropsInterface) {
         table: <TocIcon />,
         map : <MapIcon/>,
         charts : <AreaChartIcon/>,
-        posts : <DynamicFeed/>
+        posts : <DynamicFeed/>,
+        diagnostic : <AutoGraphIcon/>
     };
 
     return (
